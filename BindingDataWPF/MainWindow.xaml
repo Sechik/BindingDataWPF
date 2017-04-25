@@ -1,0 +1,38 @@
+﻿<Window x:Class="BindingDataWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BindingDataWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                <TextBox Name="textBoxName" Margin="5" Width="100" Text="{Binding ElementName=dataGridStudent, Path=SelectedItem.Name, Mode=OneWay}"></TextBox>
+                <TextBox Name="textBoxAge" Margin="5" Width="100" Text="{Binding ElementName=dataGridStudent, Path=SelectedItem.Age,  Mode=OneWay}"></TextBox>
+                <TextBox Name="textBoxSpec" Margin="5" Width="100" Text="{Binding ElementName=dataGridStudent, Path=SelectedItem.Group.Specialization, Mode=OneWay}"></TextBox>
+                <ComboBox Name="comboBoxGroup" Margin="5" Width="100" SelectedItem="{Binding ElementName=dataGridStudent, Path=SelectedItem.Group, Mode=OneWay}" DisplayMemberPath="Number"></ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Name="buttonAdd" Margin="5" Click="buttonAdd_Click">Add</Button>
+                <Button Name="buttonUpdate" Margin="5" Click="buttonUpdate_Click">Update</Button>
+                <Button Name="buttonDelete" Margin="5" Click="buttonDelete_Click">Delete</Button>
+            </StackPanel>
+            <DataGrid Name="dataGridStudent" Margin="10,10" AutoGenerateColumns="False" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Id}" ClipboardContentBinding="{x:Null}" Header="ID" Width="Auto"/>
+                    <DataGridTextColumn Binding="{Binding Name}" ClipboardContentBinding="{x:Null}" Header="Name" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Age}" ClipboardContentBinding="{x:Null}" Header="Age" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Group.Specialization}" ClipboardContentBinding="{x:Null}" Header="Specialization" Width="*"/>
+                    <DataGridComboBoxColumn  Header="Group" Width="Auto" ItemsSource="{Binding Group}" DisplayMemberPath="Number">
+                    </DataGridComboBoxColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        
+    </Grid>
+</Window>
